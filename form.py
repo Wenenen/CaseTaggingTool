@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -27,13 +27,13 @@ class Ui_MainWindow(object):
         self.current_query.setFont(font)
         self.current_query.setObjectName("current_query")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(850, 40, 111, 31))
+        self.label_3.setGeometry(QtCore.QRect(840, 0, 121, 71))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.current_index = QtWidgets.QLabel(self.centralwidget)
-        self.current_index.setGeometry(QtCore.QRect(980, 40, 141, 31))
+        self.current_index.setGeometry(QtCore.QRect(980, 0, 171, 71))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.current_index.setFont(font)
@@ -49,6 +49,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.last_case_view.setFont(font)
+        self.last_case_view.setWordWrap(True)
         self.last_case_view.setObjectName("last_case_view")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(60, 80, 121, 31))
@@ -75,7 +76,7 @@ class Ui_MainWindow(object):
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(56, 600, 551, 80))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(56, 600, 569, 80))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -137,10 +138,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.content = QtWidgets.QListView(self.horizontalLayoutWidget_3)
+        self.content = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.content.setFont(font)
         self.content.setObjectName("content")
         self.horizontalLayout_3.addWidget(self.content)
-        self.viewpoint = QtWidgets.QListView(self.horizontalLayoutWidget_3)
+        self.viewpoint = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.viewpoint.setFont(font)
         self.viewpoint.setObjectName("viewpoint")
         self.horizontalLayout_3.addWidget(self.viewpoint)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -167,7 +174,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "当前问题:"))
         self.current_query.setText(_translate("MainWindow", "TextLabel"))
-        self.label_3.setText(_translate("MainWindow", "当前索引"))
+        self.label_3.setText(_translate("MainWindow", "当前索引:"))
         self.current_index.setText(_translate("MainWindow", "TextLabel"))
         self.label_5.setText(_translate("MainWindow", "上一个案件:"))
         self.last_case_view.setText(_translate("MainWindow", "TextLabel"))
@@ -176,7 +183,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "案件内容"))
         self.label_4.setText(_translate("MainWindow", "法院观点"))
         self.last_query_btn.setText(_translate("MainWindow", "上一个问题"))
-        self.last_case_btn.setText(_translate("MainWindow", "上一个案件"))
+        self.last_case_btn.setText(_translate("MainWindow", "上一个案件(U)"))
         self.yes_btn.setText(_translate("MainWindow", "正确(1)"))
         self.soso_btn.setText(_translate("MainWindow", "相关(2)"))
         self.no_btn.setText(_translate("MainWindow", "错误(3)"))
