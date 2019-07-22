@@ -32,7 +32,10 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
 
         self.ansList=list()
 
-        # self.last_case_view.setWordWrap(True)
+        self.viewpoint.setReadOnly(True)
+        self.content.setReadOnly(True)
+
+
         QShortcut(QKeySequence(Qt.Key_1), self, self.set_yes)
         QShortcut(QKeySequence(Qt.Key_2), self, self.set_soso)
         QShortcut(QKeySequence(Qt.Key_3), self, self.set_no)
