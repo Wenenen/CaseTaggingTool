@@ -34,7 +34,7 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
 
         self.viewpoint.setReadOnly(True)
         self.content.setReadOnly(True)
-
+        self.judge.setReadOnly(True)
 
         QShortcut(QKeySequence(Qt.Key_1), self, self.set_yes)
         QShortcut(QKeySequence(Qt.Key_2), self, self.set_soso)
@@ -118,6 +118,7 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         #show content text
         self.case_title.setText(currentDocumentDict["Title"])
         self.content.setText(currentDocumentDict["Content"])
+        self.judge.setText(currentDocumentDict["JudgeResult"])
         self.viewpoint.setText(currentDocumentDict["CourtViewPoint"])
         self.case_cause.setText(currentDocumentDict["Cause"])
         currentIndexText = "问题索引:"+str(self.curQueryKey)+"/"+str(len(self.jsonDict))+"\n案例索引:"+str(self.curDocumentKey)+"/"+str(len(currentQueryDict["documents"]))

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1147, 739)
+        MainWindow.resize(1147, 740)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -95,9 +95,12 @@ class Ui_MainWindow(object):
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.verticalLayout_3.addWidget(self.label_9)
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setObjectName("textEdit")
-        self.verticalLayout_3.addWidget(self.textEdit)
+        self.judge = QtWidgets.QTextEdit(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.judge.setFont(font)
+        self.judge.setObjectName("judge")
+        self.verticalLayout_3.addWidget(self.judge)
         self.verticalLayout_6.addLayout(self.verticalLayout_3)
         self.verticalLayout_5.addLayout(self.verticalLayout_6)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -190,19 +193,10 @@ class Ui_MainWindow(object):
         self.current_index.setObjectName("current_index")
         self.horizontalLayout_6.addWidget(self.current_index)
         self.gridLayout.addLayout(self.horizontalLayout_6, 0, 3, 2, 1)
+        self.label_8.raise_()
+        self.case_cause.raise_()
         self.label.raise_()
         self.current_query.raise_()
-        self.label_3.raise_()
-        self.current_index.raise_()
-        self.label_7.raise_()
-        self.case_title.raise_()
-        self.label_2.raise_()
-        self.label_5.raise_()
-        self.last_case_view.raise_()
-        self.viewpoint.raise_()
-        self.label_3.raise_()
-        self.current_index.raise_()
-        self.label_3.raise_()
         self.label_7.raise_()
         self.case_title.raise_()
         MainWindow.setCentralWidget(self.centralwidget)

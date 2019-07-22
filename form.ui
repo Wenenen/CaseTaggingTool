@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1147</width>
-    <height>739</height>
+    <height>740</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -167,7 +167,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QTextEdit" name="textEdit"/>
+           <widget class="QTextEdit" name="judge">
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -345,19 +351,10 @@
      </layout>
     </item>
    </layout>
+   <zorder>label_8</zorder>
+   <zorder>case_cause</zorder>
    <zorder>label</zorder>
    <zorder>current_query</zorder>
-   <zorder>label_3</zorder>
-   <zorder>current_index</zorder>
-   <zorder>label_7</zorder>
-   <zorder>case_title</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label_5</zorder>
-   <zorder>last_case_view</zorder>
-   <zorder>viewpoint</zorder>
-   <zorder>label_3</zorder>
-   <zorder>current_index</zorder>
-   <zorder>label_3</zorder>
    <zorder>label_7</zorder>
    <zorder>case_title</zorder>
   </widget>
