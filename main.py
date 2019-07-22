@@ -16,7 +16,8 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
 
         self.file_path = None
         self.save_file_name = None
-        self.numToLabel = ["正确","相关","错误"]
+        self.save_json_name = None
+        self.numToLabel = ["正确","相关","错误","未标记"]
         self.is_save = True
 
         self.no = 1
@@ -60,7 +61,7 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         self.show_info()
 
     def nextOne(self):
-        if (self.file_path == None ):
+        if(self.file_path == None ):
             return
         if(self.curDocumentKey<self.documentsSize):
             self.curAnsDocumentIndex+=1
@@ -73,10 +74,18 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         else:
             msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "数据标完了，快去保存鸭。")
             msg_box.exec_()
+        print(self.curQueryKey,self.querySize)
 
     def save(self):
         if (self.file_path == None ):
             return
+
+        for qIdx in range(len(self.ansList)):
+            for dIdx in range(len(self.ansList[qIdx])):
+                self.jsonDict[str(qIdx+1)]["documents"][str(dIdx+1)]["Label"]=self.numToLabel[self.ansList[qIdx][dIdx]-1]
+        with open(self.save_json_name, 'w', encoding='utf-8') as json_file:
+            json.dump(self.jsonDict, json_file, ensure_ascii=False, indent=4)
+
 
         f = open(self.save_file_name, 'wb')
         pickle.dump(self.ansList, f)
@@ -107,13 +116,13 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         self.case_title.setText(currentDocumentDict["Title"])
         self.content.setText(currentDocumentDict["Content"])
         self.viewpoint.setText(currentDocumentDict["CourtViewPoint"])
-        currentIndexText = "问题索引："+str(self.curQueryKey)+"/"+str(len(currentQueryDict))+"\n案例索引:"+str(self.curDocumentKey)+"/"+str(len(currentQueryDict["documents"]))
-
+        self.case_cause.setText(currentDocumentDict["Cause"])
+        currentIndexText = "问题索引:"+str(self.curQueryKey)+"/"+str(len(self.jsonDict))+"\n案例索引:"+str(self.curDocumentKey)+"/"+str(len(currentQueryDict["documents"]))
 
         self.current_index.setText(currentIndexText)
         if(self.curDocumentKey > 1):
-            lastCaseViewText = currentQueryDict["documents"][str(self.curDocumentKey-1)]["Title"] + "\n" \
-                                                                                                    "被标记为："+self.numToLabel[self.ansList[self.curAnsQueryIndex][self.curAnsDocumentIndex-1]-1]
+            lastCaseViewText = "标题为："+currentQueryDict["documents"][str(self.curDocumentKey-1)]["Title"] + "\n案由为："+currentQueryDict["documents"][str(self.curDocumentKey-1)]["Cause"]+ \
+                                            "\n被标记为："+self.numToLabel[self.ansList[self.curAnsQueryIndex][self.curAnsDocumentIndex-1]-1]
             self.last_case_view.setText(lastCaseViewText)
         else:
             self.last_case_view.clear()
@@ -150,48 +159,49 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
                 return
 
         #read new file
+
         self.file_path = QFileDialog.getOpenFileName(self, 'Open file', os.getcwd())
-        if self.file_path[0]:  # 如果有这个文件
-            # self.cause_name.setText(os.path.split(self.file_path[0])[1])
-            self.save_file_name = self.file_path[0].split('.')[0] + "_ansList"
-            with open(self.file_path[0], "r", encoding='utf-8') as load_f:
-                self.jsonDict = json.load(load_f)
-
-            #init the size of "self.ansList"
-            self.querySize = len(self.jsonDict)
-            self.documentsSize = len(self.jsonDict["1"]["documents"])
-
-            #if the ansList file is already exists, load it
-            if (os.path.exists(self.save_file_name)):
-                msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "检测到该文件标注过，已载入最新进度。")
-                msg_box.exec_()
-                f = open(self.save_file_name, 'rb')
-                self.ansList = pickle.load(f)
-                f.close()
-
-                # reset the index last time
-                qIdx = len(self.ansList)-1
-                dIdx = 0
-                while (qIdx >= 0 and self.ansList[qIdx][0] == 0):
-                    qIdx -= 1
-                while (dIdx < len(self.ansList[0])-1 and self.ansList[qIdx][dIdx] != 0):
-                    dIdx += 1
-                self.curAnsQueryIndex = qIdx
-                self.curQueryKey = qIdx + 1
-                self.curAnsDocumentIndex = dIdx
-                self.curDocumentKey = dIdx + 1
-                print(self.ansList)
-                print(qIdx)
-                print(dIdx)
-            else:
-                self.ansList = [[0]*self.documentsSize for i in range(self.querySize)]
-            self.is_save = False
-            self.show_info()
-
-        else:
+        if not os.path.exists(self.file_path[0]):  # 如果有这个文件
             msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "好像没选数据文件噢。")
             msg_box.exec_()
+            return
+        if (self.file_path[0].split('.')[1] != "json"):
+            msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "只能选择json文件。")
+            msg_box.exec_()
+            return
 
+        self.save_json_name = self.file_path[0].split('.')[0] + "_label.json"
+        self.save_file_name = self.file_path[0].split('.')[0] + "_ansList"
+        with open(self.file_path[0], "r", encoding='utf-8') as load_f:
+            self.jsonDict = json.load(load_f)
+
+        #init the size of "self.ansList"
+        self.querySize = len(self.jsonDict)
+        self.documentsSize = len(self.jsonDict["1"]["documents"])
+
+        #if the ansList file is already exists, load it
+        if (os.path.exists(self.save_file_name)):
+            msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "检测到该文件标注过，已载入最新进度。")
+            msg_box.exec_()
+            f = open(self.save_file_name, 'rb')
+            self.ansList = pickle.load(f)
+            f.close()
+
+            # reset the index last time
+            qIdx = len(self.ansList)-1
+            dIdx = 0
+            while (qIdx >= 0 and self.ansList[qIdx][0] == 0):
+                qIdx -= 1
+            while (dIdx < len(self.ansList[0])-1 and self.ansList[qIdx][dIdx] != 0):
+                dIdx += 1
+            self.curAnsQueryIndex = qIdx
+            self.curQueryKey = qIdx + 1
+            self.curAnsDocumentIndex = dIdx
+            self.curDocumentKey = dIdx + 1
+        else:
+            self.ansList = [[0]*self.documentsSize for i in range(self.querySize)]
+        self.is_save = False
+        self.show_info()
 
     def closeEvent(self, event):
         if self.is_save:
@@ -202,7 +212,6 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
             event.accept()
         else:
             event.ignore()
-
 
 
 if __name__ == "__main__":
