@@ -163,13 +163,13 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
                 return
 
         #read new file
-
         self.file_path = QFileDialog.getOpenFileName(self, 'Open file', os.getcwd())
         if not os.path.exists(self.file_path[0]):  # 如果有这个文件
             msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "好像没选数据文件噢。")
             msg_box.exec_()
             return
-        if (self.file_path[0].split('.')[1] != "json"):
+        _,filename = os.path.split(self.file_path[0])
+        if (filename.split('.')[1] != "json"):
             msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "只能选择json文件。")
             msg_box.exec_()
             return
