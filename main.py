@@ -5,8 +5,8 @@ import json
 import pickle
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QShortcut
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence, QTextCharFormat, QColor, QPalette, QBrush, QColor, QFont, QTextCursor
+from PyQt5.QtCore import Qt, QRegExp
 
 
 class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
@@ -17,8 +17,9 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         self.file_path = None
         self.save_file_name = None
         self.save_json_name = None
-        self.numToLabel = ["正确","相关","错误","未标记"]
+        self.numToLabel = ["正确", "相关", "错误", "未标记"]
         self.is_save = True
+        self.search_text = ''
 
         self.no = 1
         self.soso = 2
@@ -57,14 +58,14 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         self.show_info()
 
     def set_no(self):
-        if (self.file_path == None ):
+        if self.file_path is None :
             return
         self.ansList[self.curAnsQueryIndex][self.curAnsDocumentIndex]=3
         self.nextOne()
         self.show_info()
 
     def nextOne(self):
-        if(self.file_path == None ):
+        if self.file_path is None :
             return
         if(self.curDocumentKey<self.documentsSize):
             self.curAnsDocumentIndex+=1
@@ -77,7 +78,52 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         else:
             msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "数据标完了，快去保存鸭。")
             msg_box.exec_()
-        print(self.curQueryKey,self.querySize)
+        print(self.curQueryKey, self.querySize)
+
+    def high_light(self, text_edit_obj, search_text):
+        found = False
+        text_edit_obj.setText(text_edit_obj.toPlainText())
+        text_len = len(search_text)
+        # 光标
+        cursor = text_edit_obj.textCursor()
+        # 格式
+        format = QTextCharFormat()
+        format.setBackground(QBrush(QColor("red")))
+        format.setFontWeight(QFont.Bold)
+        # setup the regex engine
+        regex = QRegExp(search_text)
+        # process the text
+        pos = 0
+        index = regex.indexIn(text_edit_obj.toPlainText(), pos)
+        while index is not -1:
+            found = True
+            # select the matched text and apply the desired format
+            cursor.setPosition(index)
+            for i in range(text_len):
+                cursor.movePosition(QTextCursor.Right, 1)
+            cursor.mergeCharFormat(format)
+            # move to the next match
+            pos = index + regex.matchedLength()
+            index = regex.indexIn(text_edit_obj.toPlainText(), pos)
+        return found
+
+    def search_word(self):
+        found = False
+        search_text = self.search_edit.text()
+        if search_text == '':
+            msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "请输入查找词")
+            msg_box.exec_()
+        else:
+            if self.high_light(self.viewpoint, search_text):
+                found = True
+            if self.high_light(self.content, search_text):
+                found = True
+            if self.high_light(self.judge, search_text):
+                found = True
+
+            if found is False:
+                msg_box = QMessageBox(QMessageBox.Information, "消息提醒", "没有匹配")
+                msg_box.exec_()
 
     def save(self):
         if (self.file_path == None ):
@@ -88,7 +134,6 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
                 self.jsonDict[str(qIdx+1)]["documents"][str(dIdx+1)]["Label"]=self.numToLabel[self.ansList[qIdx][dIdx]-1]
         with open(self.save_json_name, 'w', encoding='utf-8') as json_file:
             json.dump(self.jsonDict, json_file, ensure_ascii=False, indent=4)
-
 
         f = open(self.save_file_name, 'wb')
         pickle.dump(self.ansList, f)
@@ -146,7 +191,7 @@ class mywindow(QtWidgets.QMainWindow, form.Ui_MainWindow):
         if (self.file_path == None):
             return
         if(self.curDocumentKey>1):
-            self.curDocumentKey-=1
+            self.curDocumentKey -= 1
             self.curAnsDocumentIndex -= 1
             self.show_info()
         else:
