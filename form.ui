@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1374</width>
-    <height>869</height>
+    <width>1378</width>
+    <height>805</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,28 +140,61 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="last_query_btn">
-              <property name="font">
-               <font>
-                <pointsize>28</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>上一个问题</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="last_case_btn">
-              <property name="font">
-               <font>
-                <pointsize>28</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>上一个案件(U)</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QPushButton" name="last_query_btn">
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>上一个问题</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="last_case_btn">
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>上一个案件(U)</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <widget class="QPushButton" name="search_btn">
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>查询</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="search_edit">
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
@@ -367,7 +400,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1374</width>
+     <width>1378</width>
      <height>26</height>
     </rect>
    </property>
@@ -383,12 +416,12 @@
    <slot>set_yes()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>737</x>
-     <y>534</y>
+     <x>998</x>
+     <y>648</y>
     </hint>
     <hint type="destinationlabel">
      <x>654</x>
-     <y>-5</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -399,12 +432,12 @@
    <slot>set_soso()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>919</x>
-     <y>538</y>
+     <x>1180</x>
+     <y>648</y>
     </hint>
     <hint type="destinationlabel">
      <x>835</x>
-     <y>-3</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -415,12 +448,12 @@
    <slot>set_no()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1069</x>
-     <y>541</y>
+     <x>1362</x>
+     <y>648</y>
     </hint>
     <hint type="destinationlabel">
      <x>1038</x>
-     <y>-3</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -431,12 +464,12 @@
    <slot>save()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>614</y>
+     <x>1363</x>
+     <y>707</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
-     <y>-8</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -447,28 +480,12 @@
    <slot>select_file()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1105</x>
-     <y>677</y>
+     <x>1363</x>
+     <y>765</y>
     </hint>
     <hint type="destinationlabel">
      <x>1130</x>
-     <y>-4</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>last_query_btn</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>last_query()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>224</x>
-     <y>670</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>296</x>
-     <y>-8</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -479,12 +496,44 @@
    <slot>last_case()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>480</x>
-     <y>651</y>
+     <x>810</x>
+     <y>711</y>
     </hint>
     <hint type="destinationlabel">
      <x>447</x>
-     <y>-3</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>last_query_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>last_query()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>711</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>search_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>search_word()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>727</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>-2</y>
     </hint>
    </hints>
   </connection>
@@ -497,5 +546,6 @@
   <slot>select_file()</slot>
   <slot>last_query()</slot>
   <slot>last_case()</slot>
+  <slot>search_word()</slot>
  </slots>
 </ui>
